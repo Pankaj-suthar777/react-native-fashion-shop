@@ -5,12 +5,14 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "@react-navigation/native";
 import Icons from "@expo/vector-icons/MaterialIcons";
 import MasonryList from "reanimated-masonry-list";
+import { BlurView } from "expo-blur";
 
 const CATEGORIES = [
   "Clothing",
@@ -198,23 +200,87 @@ const HomeScreen = () => {
           keyExtractor={(item): string => item.id}
           numColumns={2}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 24 }}
+          contentContainerStyle={{ paddingHorizontal: 12 }}
           renderItem={({ item, i }) => (
             <View
               style={{
                 aspectRatio: i === 0 ? 1 : 2 / 3,
                 position: "relative",
                 overflow: "hidden",
-                backgroundColor: "red",
-                marginTop: 12,
+                padding: 6,
                 borderRadius: 24,
               }}
             >
               <Image
                 resizeMode="cover"
-                source={require("../assets/images/image-7.jpg")}
-                style={{ height: "100%", width: "100%" }}
+                source={require("../assets/images/image-4.jpg")}
+                style={{ height: "100%", width: "100%", borderRadius: 24 }}
               />
+              <View style={[StyleSheet.absoluteFill, { padding: 12 }]}>
+                <View style={{ flexDirection: "row", gap: 8, padding: 4 }}>
+                  <Text
+                    style={{
+                      flex: 1,
+                      fontSize: 16,
+                      fontWeight: "600",
+                      color: colors.text,
+                    }}
+                  >
+                    PUMA Evertday Hussle
+                  </Text>
+                  <View
+                    style={{
+                      backgroundColor: colors.background,
+                      borderRadius: 100,
+                      height: 32,
+                      aspectRatio: 1,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Icons
+                      name="favorite-border"
+                      size={20}
+                      color={colors.text}
+                    />
+                  </View>
+                </View>
+                <View style={{ flex: 1 }} />
+                <BlurView
+                  style={{
+                    flexDirection: "row",
+                    backgroundColor: "rgba(0,0,0,0.35)",
+                    alignItems: "center",
+                    padding: 8,
+                    borderRadius: 100,
+                    overflow: "hidden",
+                  }}
+                  intensity={20}
+                >
+                  <Text
+                    style={{
+                      flex: 1,
+                      fontSize: 16,
+                      fontWeight: "600",
+                      color: "#fff",
+                      marginLeft: 4,
+                    }}
+                    numberOfLines={1}
+                  >
+                    $200.00
+                  </Text>
+                  <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 16,
+                      paddingVertical: 8,
+                      borderRadius: 100,
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <Icons name="add-shopping-cart" size={20} color="#000" />
+                  </TouchableOpacity>
+                </BlurView>
+              </View>
             </View>
           )}
           onEndReachedThreshold={0.1}
