@@ -19,6 +19,7 @@ import BottomSheet, {
 } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../components/CustomBackdrop";
 import FilterView from "../components/FilterView";
+import { TabsStackScreenProps } from "../naviagtores/TabsNaviagtor";
 
 const CATEGORIES = [
   "Clothing",
@@ -29,7 +30,7 @@ const CATEGORIES = [
   "Accessories 4",
 ];
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }: TabsStackScreenProps<"Home">) => {
   const { colors } = useTheme();
   const [categoryIndex, setCategoryIndex] = useState(0);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -163,11 +164,35 @@ const HomeScreen = () => {
           <View style={{ flexDirection: "row", height: 200, gap: 12 }}>
             {/* Card */}
             <View style={{ flex: 1 }}>
-              <Card />
+              <Card
+                imageUrl=""
+                price={8}
+                onPress={() => {
+                  navigation.navigate("DetailsScreen", {
+                    id: "48",
+                  });
+                }}
+              />
             </View>
             <View style={{ flex: 1, gap: 12 }}>
-              <Card />
-              <Card />
+              <Card
+                imageUrl=""
+                price={8}
+                onPress={() => {
+                  navigation.navigate("DetailsScreen", {
+                    id: "4",
+                  });
+                }}
+              />
+              <Card
+                imageUrl=""
+                price={8}
+                onPress={() => {
+                  navigation.navigate("DetailsScreen", {
+                    id: "49999",
+                  });
+                }}
+              />
             </View>
           </View>
         </View>
@@ -312,14 +337,23 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-const Card = () => {
+const Card = ({
+  price,
+  imageUrl,
+  onPress,
+}: {
+  price: number;
+  imageUrl: string;
+  onPress?: () => void;
+}) => {
   return (
-    <View
+    <TouchableOpacity
       style={{
         flex: 1,
         borderRadius: 24,
         position: "relative",
       }}
+      onPress={onPress}
     >
       <Image
         source={require("../assets/images/image-1.jpg")}
@@ -341,6 +375,6 @@ const Card = () => {
           $130
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };

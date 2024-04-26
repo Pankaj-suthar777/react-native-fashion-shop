@@ -1,8 +1,13 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+  BottomTabScreenProps,
+  createBottomTabNavigator,
+} from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import Icons from "@expo/vector-icons/MaterialIcons";
+import { CompositeScreenProps } from "@react-navigation/native";
+import { RootStackScreenProps } from "./RootNavigators";
 
 export type TabsStackParamList = {
   Home: undefined;
@@ -12,6 +17,12 @@ export type TabsStackParamList = {
 };
 
 const TabsStack = createBottomTabNavigator<TabsStackParamList>();
+
+export type TabsStackScreenProps<T extends keyof TabsStackParamList> =
+  CompositeScreenProps<
+    BottomTabScreenProps<TabsStackParamList, T>,
+    RootStackScreenProps<"TabsStack">
+  >;
 
 const TabsNaviagtor = () => {
   return (
